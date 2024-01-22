@@ -1,0 +1,100 @@
+<div class="form-container">
+  <form class="form-body" [formGroup]="form">
+
+    <div class="form-control" [ngClass]="{'form-control-loading': userName.pending}">
+      Username
+      <span class="required"> * </span>
+      <ng-container *ngIf="userName.dirty">
+        <span *ngIf="userName.hasError('required')" class="form-message form-message-error">
+          This feild is required
+        </span>
+        <span *ngIf="userName.hasError('usernameExist')" class="form-message form-message-error">
+          This name is exist
+        </span>
+        <span *ngIf="userName.valid && !userName.pending" class="form-message form-message-success">
+          Valid Username
+        </span>
+      </ng-container>
+      <input type="text" placeholder="Your Username" formControlName="userName">
+    </div>
+
+    <div class="form-control" [ngClass]="{'form-control-loading': lazyUserName.pending}">
+      Lazy Username
+      <span class="required"> * </span>
+      <ng-container *ngIf="lazyUserName.dirty">
+        <span *ngIf="lazyUserName.hasError('required')" class="form-message form-message-error">
+          This feild is required
+        </span>
+        <span *ngIf="lazyUserName.hasError('usernameExist')" class="form-message form-message-error">
+          This name is exist
+        </span>
+        <span *ngIf="lazyUserName.valid && !lazyUserName.pending" class="form-message form-message-success">
+          Valid Username
+        </span>
+      </ng-container>
+      <input type="text" placeholder="Your Username" formControlName="lazyUserName">
+    </div>
+
+    <div class="form-control">
+      Password
+      <span class="required"> * </span>
+      <ng-container *ngIf="password.dirty">
+        <span *ngIf="password.hasError('required')" class="form-message form-message-error">
+          This feild is required
+        </span>
+        <span *ngIf="password.hasError('minlength')" class="form-message form-message-error">
+          Enter 6 characters at least
+        </span>
+        <span *ngIf="password.hasError('maxlength')" class="form-message form-message-error">
+          Long Password
+        </span>
+        <span *ngIf="password.valid" class="form-message form-message-success">
+          Valid Password
+        </span>
+      </ng-container>
+      <input type="password" placeholder="Password" formControlName="password">
+    </div>
+
+    <div class="form-control">
+      Confirm Password
+      <span class="required"> * </span>
+      <ng-container *ngIf="confirmPassword.dirty">
+        <span *ngIf="confirmPassword.hasError('required')" class="form-message form-message-error">
+          This feild is required
+        </span>
+        <span *ngIf="password.value !== confirmPassword.value && confirmPassword.value.length"
+          class="form-message form-message-error">
+          Wrong Password
+        </span>
+        <span *ngIf="password.value === confirmPassword.value && password.valid && confirmPassword.valid"
+          class="form-message form-message-success">
+          Valid Password
+        </span>
+      </ng-container>
+      <input type="password" placeholder="Confirm Your Password" formControlName="confirmPassword">
+    </div>
+
+    <div class="form-control" [ngClass]="{'form-control-loading': email.pending}">
+      Email
+      <span class="required"> * </span>
+      <ng-container *ngIf="email.dirty">
+        <span *ngIf="email.hasError('required')" class="form-message form-message-error">
+          This feild is required
+        </span>
+        <span *ngIf="email.hasError('mailExist')" class="form-message form-message-error">
+          This email is exist
+        </span>
+        <span *ngIf="email.hasError('email') || email.hasError('pattern')" class="form-message form-message-error">
+          Invalid Email
+        </span>
+        <span *ngIf="email.valid && !email.pending" class="form-message form-message-success">
+          Valid Email
+        </span>
+      </ng-container>
+      <input type="text" placeholder="Your Email" formControlName="email">
+    </div>
+
+    <button [class]="{'submit-btn': true, 'valid': form.valid && !form.pending}"
+      [disabled]="form.invalid || form.pending">Submit</button>
+  </form>
+</div>
